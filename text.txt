@@ -1,0 +1,109 @@
+pip install virtualenv
+virtualenv sfask
+Set-ExecutionPolicy unrestricted
+.\env\Scripts\activate.ps1
+
+___________________________________________________________
+
+from flask import Flask 
+app = Flask(__name__)
+
+
+@app.route('/')  
+def hello_world():
+    return 'Hello, World!'
+
+@app.route('/sahil') #new page /sahil
+def helloworld(): #function name cant be same
+    return 'This is sahil!'
+
+if __name__ == '__main__':
+    app.run(debug=True,port =8000)  #telling to run the app. in debug dbug true only for develop time
+
+
+
+#static and template folder.
+#static: dont save any file in it.  http://127.0.0.1:8000/static/test.txt
+#template: used to save template,  ! index.html.  #title = table name webstite
+# to show the template : @app.route('/')
+		import render_template
+		def hello_world():
+  			return render_template('index.html')
+
+## getbootstrap: write code for website. templates.
+#<div class="container">
+## Give heading - insider container <h1>This is heading<\h>
+## give margin <mv for bottom, my for vertical, mx for horizontal
+# <my-3>
+##id == for 
+
+
+_____________________________________
+#creating data base
+pip install flask-sqlalchemy #change database with python
+from flask_sqlalchemy import SQLAlchemy
+
+#setup flasks
+app = flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///todo.db"
+db = SQLAlchemy(app)
+
+class Todo(db.Model):
+    sno=db.Column(db.Interger, primary_key=True)
+    title =db.Column(db.String(200), nullable =False)
+    desc=db.Column(db.String(500), primary_key=True)
+    date_created =db.Column(db.DatetTime, default=datetime.utcnow)
+
+   def __repr__(self) -> str: #when print print the object from Todo class, it set what to show
+        #return super().__repr__()
+	return f"{self.sno} - {self.title}" #return sno and title 
+  #from your appname import dp
+  #dp.create_all()    #database created
+
+###Adding object in the db
+ 
+app.logger.info(region.id)
+
+________________query
+allTodo =Todo.query.all()
+    print(allTodo)
+#how to display in site
+#jinja2 is template extension use in HTML
+#return render_template('index.html',allTodo=allTodo) 
+   to accesses altodo data in html index.html
+
+**adding loop counter 
+	      <tbody>
+              {% for todo  in allTodo  %}
+              <tr>
+                <th scope="row">{{loop.index}}</th>
+                <td>{{todo.title}}</td>
+                <td>{{todo.desc}}</td>
+                <td>{{todo.date_created}}</td>
+              </tr>
+              {% endfor %}
+              
+             
+            </tbody>
+______________________-working form
+<form action="/" method="POST"> # ADD METHOD  PONST ON FORM
+#TO GET OUTPUT AS POST USE. @app.route('/',methods=['GEST','POST'])
+
+#template ; base.html #reuseable temp in the app
+#template inheritance #base.html--- common components
+
+________________requirements
+pip install gunicorn
+pip freeze > requirements.txt
+
+*** Procfile 
+
+
+
+
+
+
+
+
+
+
